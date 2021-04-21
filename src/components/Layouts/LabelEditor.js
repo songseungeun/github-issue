@@ -28,7 +28,7 @@ const LabelEditor = () => {
         <NewLabelButton newLabel={newLabel} setNewLabel={setNewLabel} />
       </MenuContainer>
 
-      {newLabel && <NewLabel />}
+      {newLabel && <NewLabel setNewLabel={setNewLabel} />}
 
       <LabelList />
     </LabelEditorBlock>

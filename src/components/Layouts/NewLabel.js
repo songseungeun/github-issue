@@ -1,49 +1,122 @@
+/* eslint-disable no-tabs */
+import { useState } from 'react';
 import styled from 'styled-components';
+import colorList from '../../constants/colorList';
 
 const NewLabelBlock = styled.div`
+  display: flex;
+  flex-direction: column;
   background-color: #888;
   padding: 10px;
 `;
+
 const LabelPreviewBlock = styled.div`
-  strong {
-    padding: 5px 7px;
-    background-color: #333;
-  }
+  padding: 10px 0;
 `;
+
+const Label = styled.strong`
+  padding: 5px 7px;
+  background-color: ${props => props.bgColor || ''};
+  color: ${props => props.fontColor || ''};
+`;
+
 const NewLabelContainer = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 15px;
 `;
+
+const DescWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const ColorInputWrapper = styled.div``;
+
 const LabelWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const NewLabel = () => {
+const initState = {
+  name: '',
+  desc: '',
+  color: {
+    fontColor: '#111',
+    bgColor: '#98c9d4'
+  }
+};
+
+const NewLabel = ({ setNewLabel }) => {
+  const [labelInput, setLabelInput] = useState(initState);
+
+  const changeInputValue = ({ target: { name, value } }) => {
+    setLabelInput({
+      ...labelInput,
+      [name]: value
+    });
+  };
+
+  const randomColor = () => {
+    const randomNumber = Math.floor(Math.random() * 6);
+
+    setLabelInput({
+      ...labelInput,
+      color: colorList[randomNumber]
+    });
+  };
+
+  console.log(labelInput);
+
   return (
     <NewLabelBlock>
       <LabelPreviewBlock>
-        <strong>Label preview</strong>
+        <Label
+          fontColor={labelInput.color.fontColor}
+          bgColor={labelInput.color.bgColor}
+        >
+          {labelInput.name || 'Label preview'}
+        </Label>
       </LabelPreviewBlock>
 
       <NewLabelContainer>
         <LabelWrapper>
-          <label for="labelname">Label name</label>
-          <input type="text" name="labelname" placeholder="Label name" />
-        </LabelWrapper>
-        <LabelWrapper>
-          <label for="description">Description</label>
+          <label htmlFor="name">Label name</label>
           <input
             type="text"
-            name="description"
-            placeholder="Description (optional)"
+            name="name"
+            placeholder="Label name"
+            onChange={changeInputValue}
+            value={labelInput.name}
           />
         </LabelWrapper>
+        <DescWrapper>
+          <label htmlFor="desc">Description</label>
+          <input
+            type="text"
+            name="desc"
+            placeholder="Description (optional)"
+            onChange={changeInputValue}
+            value={labelInput.desc}
+          />
+        </DescWrapper>
         <LabelWrapper>
-          <label for="color">Color</label>
-          <input type="text" name="color" placeholder="Color" />
+          <label htmlFor="color">Color</label>
+          <ColorInputWrapper>
+            <button onClick={randomColor}>R</button>
+            <input
+              type="text"
+              name="color"
+              placeholder="Color"
+              onChange={changeInputValue}
+              value={labelInput.color.bgColor}
+            />
+          </ColorInputWrapper>
         </LabelWrapper>
 
-        <button>Cancel</button>
+        <button onClick={() => setNewLabel(false)}>Cancel</button>
         <button>Create label</button>
       </NewLabelContainer>
     </NewLabelBlock>
