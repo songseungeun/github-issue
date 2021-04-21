@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import getLabels from '../../service/api';
 
 const LabelListBlock = styled.div`
   border: 1px solid #ccc;
@@ -28,7 +27,8 @@ const LabelBlock = styled.div`
 
 const Label = styled.strong`
   padding: 5px 7px;
-  background-color: ${props => props.color || ''};
+  background-color: ${props => props.bgColor || ''};
+  color: ${props => props.fontColor || ''};
 `;
 
 const Desc = styled.div`
@@ -43,21 +43,7 @@ const Delete = styled.button`
   cursor: pointer;
 `;
 
-const LabelList = () => {
-  const [labelList, setLabelList] = useState([]);
-
-  const fetchLabelList = async () => {
-    const data = await getLabels();
-
-    setLabelList(data);
-  };
-
-  useEffect(() => {
-    fetchLabelList();
-  }, []);
-
-  if (!labelList) return null;
-
+const LabelList = ({ labelList }) => {
   return (
     <LabelListBlock>
       <LabelListHeader>8 labels</LabelListHeader>
@@ -65,7 +51,9 @@ const LabelList = () => {
         {labelList.map(({ id, name, desc, color }) => (
           <li key={`label${id}`}>
             <LabelBlock>
-              <Label color={color}>{name}</Label>
+              <Label fontColor={color.fontColor} bgColor={color.bgColor}>
+                {name}
+              </Label>
             </LabelBlock>
             <Desc>{desc}</Desc>
             <Edit>Edit</Edit>

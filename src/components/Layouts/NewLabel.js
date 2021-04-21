@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import colorList from '../../constants/colorList';
+import { postLabels } from '../../service/api';
 
 const NewLabelBlock = styled.div`
   display: flex;
@@ -49,7 +50,7 @@ const initState = {
   }
 };
 
-const NewLabel = ({ setNewLabel }) => {
+const NewLabel = ({ setNewLabel, setStatus }) => {
   const [labelInput, setLabelInput] = useState(initState);
 
   const changeInputValue = ({ target: { name, value } }) => {
@@ -68,7 +69,27 @@ const NewLabel = ({ setNewLabel }) => {
     });
   };
 
-  console.log(labelInput);
+  const addLabel = async () => {
+    setStatus(prev => ({
+      ...prev,
+      loading: true
+    }));
+
+    try {
+      const res = await postLabels(labelInput);
+
+      setStatus(prev => ({
+        ...prev,
+        loading: false
+      }));
+    } catch (e) {
+      setStatus(prev => ({
+        ...prev,
+        loading: false,
+        error: e
+      }));
+    }
+  };
 
   return (
     <NewLabelBlock>
@@ -117,7 +138,7 @@ const NewLabel = ({ setNewLabel }) => {
         </LabelWrapper>
 
         <button onClick={() => setNewLabel(false)}>Cancel</button>
-        <button>Create label</button>
+        <button onClick={addLabel}>Create label</button>
       </NewLabelContainer>
     </NewLabelBlock>
   );

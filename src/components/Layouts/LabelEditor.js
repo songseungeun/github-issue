@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { getLabels } from '../../service/api';
+
 import MenuTab from '../Items/MenuTab';
 import NewLabelButton from '../Items/NewLabelButton';
 import LabelList from './LabelList';
@@ -19,7 +21,29 @@ const MenuContainer = styled.div`
 `;
 
 const LabelEditor = () => {
+  const [status, setStatus] = useState({
+    loading: false,
+    error: null
+  });
+
+  const [labelList, setLabelList] = useState([]);
   const [newLabel, setNewLabel] = useState(false);
+
+  const fetchLabelList = async () => {
+    const data = await getLabels();
+
+    setLabelList(data);
+  };
+
+  const { loading, error } = status;
+
+  useEffect(() => {
+    fetchLabelList();
+  }, [loading]);
+
+  if (loading) return <div>loading...</div>;
+  if (error) return <div>error</div>;
+  if (!labelList) return null;
 
   return (
     <LabelEditorBlock>
@@ -28,9 +52,9 @@ const LabelEditor = () => {
         <NewLabelButton newLabel={newLabel} setNewLabel={setNewLabel} />
       </MenuContainer>
 
-      {newLabel && <NewLabel setNewLabel={setNewLabel} />}
+      {newLabel && <NewLabel setNewLabel={setNewLabel} setStatus={setStatus} />}
 
-      <LabelList />
+      <LabelList labelList={labelList} />
     </LabelEditorBlock>
   );
 };
