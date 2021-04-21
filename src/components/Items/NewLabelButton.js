@@ -4,8 +4,10 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const NewLabelButton = () => {
-  return <Button>New label</Button>;
+const NewLabelButton = ({ newLabel, setNewLabel }) => {
+  const openNewLabel = () => setNewLabel(!newLabel);
+
+  return <Button onClick={openNewLabel}>New label</Button>;
 };
 
 export default NewLabelButton;

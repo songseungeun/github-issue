@@ -1,7 +1,9 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import MenuTab from '../Items/MenuTab';
 import NewLabelButton from '../Items/NewLabelButton';
 import LabelList from './LabelList';
+import NewLabel from './NewLabel';
 
 const LabelEditorBlock = styled.div`
   max-width: 970px;
@@ -17,12 +19,16 @@ const MenuContainer = styled.div`
 `;
 
 const LabelEditor = () => {
+  const [newLabel, setNewLabel] = useState(false);
+
   return (
     <LabelEditorBlock>
       <MenuContainer>
         <MenuTab />
-        <NewLabelButton />
+        <NewLabelButton newLabel={newLabel} setNewLabel={setNewLabel} />
       </MenuContainer>
+
+      {newLabel && <NewLabel />}
 
       <LabelList />
     </LabelEditorBlock>
