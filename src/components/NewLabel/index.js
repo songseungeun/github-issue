@@ -1,45 +1,16 @@
 /* eslint-disable no-tabs */
 import { useState } from 'react';
-import styled from 'styled-components';
+import {
+  NewLabelBlock,
+  LabelPreviewBlock,
+  NewLabelContainer,
+  DescWrapper,
+  ColorInputWrapper,
+  LabelWrapper
+} from './index.styles';
 import colorList from '../../constants/colorList';
 import { postLabels } from '../../service/api';
-
-const NewLabelBlock = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #888;
-  padding: 10px;
-`;
-
-const LabelPreviewBlock = styled.div`
-  padding: 10px 0;
-`;
-
-const Label = styled.strong`
-  padding: 5px 7px;
-  background-color: ${props => props.bgColor || ''};
-  color: ${props => props.fontColor || ''};
-`;
-
-const NewLabelContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-top: 15px;
-`;
-
-const DescWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const ColorInputWrapper = styled.div``;
-
-const LabelWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import LabelItem from '../Label/LabelItem';
 
 const initState = {
   name: '',
@@ -82,6 +53,8 @@ const NewLabel = ({ setNewLabel, setStatus }) => {
         ...prev,
         loading: false
       }));
+
+      setLabelInput(initState);
     } catch (e) {
       setStatus(prev => ({
         ...prev,
@@ -94,12 +67,10 @@ const NewLabel = ({ setNewLabel, setStatus }) => {
   return (
     <NewLabelBlock>
       <LabelPreviewBlock>
-        <Label
-          fontColor={labelInput.color.fontColor}
-          bgColor={labelInput.color.bgColor}
-        >
-          {labelInput.name || 'Label preview'}
-        </Label>
+        <LabelItem
+          color={labelInput.color}
+          name={labelInput.name || 'Label preview'}
+        />
       </LabelPreviewBlock>
 
       <NewLabelContainer>

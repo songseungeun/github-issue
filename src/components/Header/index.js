@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const Header = () => {
+  return <HeaderBlock>ISSUES</HeaderBlock>;
+};
+
 const HeaderBlock = styled.div`
   padding: 45px;
   background-color: #333;
@@ -7,9 +11,4 @@ const HeaderBlock = styled.div`
   font-weight: bold;
   text-align: center;
 `;
-
-const Header = () => {
-  return <HeaderBlock>ISSUES</HeaderBlock>;
-};
-
 export default Header;

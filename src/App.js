@@ -1,12 +1,10 @@
-import Header from './components/Layouts/Header';
-import LabelEditor from './components/Layouts/LabelEditor';
+import IssueTracker from './components/Pages/IssueTracker';
 import GlobalStyles from './styles/GlobalStyles';
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <LabelEditor />
+      <IssueTracker />
       <GlobalStyles />
     </div>
   );
