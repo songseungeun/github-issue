@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import Label from '../Label';
 
-const LabelList = ({ labelList }) => {
+const LabelList = ({ labelList, status, setStatus }) => {
   return (
     <LabelListBlock>
       <LabelListHeader>8 labels</LabelListHeader>
       <ul>
         {labelList.map(Item => (
-          <Label Item={Item} />
+          <Label {...{ Item, status, setStatus }} />
         ))}
       </ul>
     </LabelListBlock>

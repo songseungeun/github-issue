@@ -4,7 +4,7 @@ import { getLabels } from '../../service/api';
 
 import LabelList from './LabelList';
 
-const LabelEditor = ({ status }) => {
+const LabelEditor = ({ status, setStatus }) => {
   const [labelList, setLabelList] = useState(null);
 
   const fetchLabelList = async () => {
@@ -25,7 +25,7 @@ const LabelEditor = ({ status }) => {
 
   return (
     <LabelEditorBlock>
-      <LabelList labelList={labelList} />
+      <LabelList {...{ labelList, status, setStatus }} />
     </LabelEditorBlock>
   );
 };

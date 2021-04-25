@@ -20,3 +20,15 @@ export async function postLabels(data) {
 
   return response;
 }
+
+export async function patchLabels(data) {
+  const response = await fetch(`${URL.labels}/${data.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(data),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return response;
+}

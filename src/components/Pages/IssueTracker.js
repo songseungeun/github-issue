@@ -15,7 +15,7 @@ const IssueTracker = () => {
       <Header />
       <IssueTrackerContainer>
         <Menu status={status} setStatus={setStatus} />
-        <LabelEditor status={status} setStatus={setStatus} />
+        <LabelEditor {...{ status, setStatus }} />
       </IssueTrackerContainer>
     </>
   );
