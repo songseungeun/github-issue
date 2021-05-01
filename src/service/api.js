@@ -32,3 +32,11 @@ export async function patchLabels(data) {
 
   return response;
 }
+
+export async function deleteLabels(id) {
+  const response = await fetch(`${URL.labels}/${id}`, {
+    method: 'DELETE'
+  });
+
+  return response;
+}
