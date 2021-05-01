@@ -16,12 +16,12 @@ export const Desc = styled.div`
   flex: 1;
 `;
 
-export const Edit = styled.button`
+export const CenterContainer = styled.button`
   padding: 10px;
   cursor: pointer;
 `;
 
-export const Delete = styled.button`
-  padding: 10px;
-  cursor: pointer;
+export const Button = styled(CenterContainer)`
+  background-color: #333;
+  color: #fff;
 `;

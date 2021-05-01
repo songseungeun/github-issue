@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LabelWrapper, LabelBlock, Desc, Edit, Delete } from './index.styles';
+import { LabelWrapper, LabelBlock, Button } from './index.styles';
 import LabelItem from './LabelItem';
 import EditLabel from '../EditLabel';
 
@@ -13,9 +13,11 @@ const Label = ({ Item: { id, name, color, desc }, status, setStatus }) => {
           <LabelBlock>
             <LabelItem name={name} color={color} />
           </LabelBlock>
+
           <Desc>{desc}</Desc>
-          <Edit onClick={() => setIsEdit(!isEdit)}>Edit</Edit>
-          <Delete>Delete</Delete>
+
+          <Button onClick={() => setIsEdit(!isEdit)}>Edit</Button>
+          <Button>Delete</Button>
         </>
       ) : (
         <>

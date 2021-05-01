@@ -10,7 +10,9 @@ import {
 } from './index.styles';
 import colorList from '../../constants/colorList';
 import { postLabels } from '../../service/api';
-import LabelItem from '../Label/LabelItem';
+
+import InputLabel from './InputLabel';
+import LabelPreview from './LabelPreview';
 
 const initState = {
   name: '',
@@ -55,6 +57,7 @@ const NewLabel = ({ setNewLabel, setStatus }) => {
       }));
 
       setLabelInput(initState);
+      setNewLabel(false);
     } catch (e) {
       setStatus(prev => ({
         ...prev,
@@ -66,34 +69,24 @@ const NewLabel = ({ setNewLabel, setStatus }) => {
 
   return (
     <NewLabelBlock>
-      <LabelPreviewBlock>
-        <LabelItem
-          color={labelInput.color}
-          name={labelInput.name || 'Label preview'}
-        />
-      </LabelPreviewBlock>
+      <LabelPreview labelInput={labelInput} />
 
       <NewLabelContainer>
-        <LabelWrapper>
-          <label htmlFor="name">Label name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Label name"
-            onChange={changeInputValue}
-            value={labelInput.name}
-          />
-        </LabelWrapper>
-        <DescWrapper>
-          <label htmlFor="desc">Description</label>
-          <input
-            type="text"
-            name="desc"
-            placeholder="Description (optional)"
-            onChange={changeInputValue}
-            value={labelInput.desc}
-          />
-        </DescWrapper>
+        <InputLabel
+          inputName="name"
+          labelName="Label name"
+          placeholder="Label name"
+          onChange={changeInputValue}
+          value={labelInput.name}
+        />
+        <InputLabel
+          inputName="desc"
+          labelName="Description"
+          placeholder="Description (optional)"
+          onChange={changeInputValue}
+          value={labelInput.desc}
+        />
+
         <LabelWrapper>
           <label htmlFor="color">Color</label>
           <ColorInputWrapper>
