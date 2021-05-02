@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { getLabels } from '../../service/api';
+import Loading from '../Loading';
 
 import LabelList from './LabelList';
 
@@ -19,7 +20,7 @@ const LabelEditor = ({ status, setStatus }) => {
     fetchLabelList();
   }, [loading]);
 
-  if (loading) return <div>loading...</div>;
+  if (loading) return <Loading />;
   if (error) return <div>error</div>;
   if (!labelList) return null;
 

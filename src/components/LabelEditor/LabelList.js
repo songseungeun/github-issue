@@ -4,7 +4,7 @@ import Label from '../Label';
 const LabelList = ({ labelList, status, setStatus }) => {
   return (
     <LabelListBlock>
-      <LabelListHeader>8 labels</LabelListHeader>
+      <LabelListHeader>{labelList.length} labels</LabelListHeader>
       <ul>
         {labelList.map(Item => (
           <Label {...{ Item, status, setStatus }} />

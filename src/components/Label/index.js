@@ -3,9 +3,11 @@ import { LabelWrapper, LabelBlock, Button, Desc } from './index.styles';
 import { deleteLabels } from '../../service/api';
 import LabelItem from './LabelItem';
 import EditLabel from '../EditLabel';
+import Modal from '../Modal';
 
 const Label = ({ Item: { id, name, color, desc }, status, setStatus }) => {
   const [isEdit, setIsEdit] = useState(false);
+  const [confirmDeleteModal, setConfirmDeleteModal] = useState(false);
 
   const deleteLabel = async () => {
     setStatus(prev => ({
@@ -40,7 +42,7 @@ const Label = ({ Item: { id, name, color, desc }, status, setStatus }) => {
           <Desc>{desc}</Desc>
 
           <Button onClick={() => setIsEdit(!isEdit)}>Edit</Button>
-          <Button onClick={deleteLabel}>Delete</Button>
+          <Button onClick={() => setConfirmDeleteModal(true)}>Delete</Button>
         </>
       ) : (
         <>
@@ -48,6 +50,12 @@ const Label = ({ Item: { id, name, color, desc }, status, setStatus }) => {
             {...{ id, name, color, desc, setIsEdit, status, setStatus }}
           />
         </>
+      )}
+      {confirmDeleteModal && (
+        <Modal
+          confirm={() => deleteLabel()}
+          cancel={() => setConfirmDeleteModal(false)}
+        />
       )}
     </LabelWrapper>
   );
